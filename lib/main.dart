@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:live_class_project/firebase_messaging_service.dart';
+import 'package:live_class_project/firebase_student_app.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseMessagingService().initialize();
+  await FirebaseMessagingService().getFCMToken();
+  await FirebaseMessagingService().subscribeToTopic('the-new-boston');
+  await FirebaseMessagingService().onRefresh((token) {
+    // TODO - send to api
+  });
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  runApp(const FirebaseStudentApp());
 }
 
