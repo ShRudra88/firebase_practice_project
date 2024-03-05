@@ -18,7 +18,6 @@ class MatchListUI extends StatelessWidget {
 class MatchList extends StatelessWidget {
   const MatchList({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

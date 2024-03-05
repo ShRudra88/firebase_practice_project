@@ -11,10 +11,7 @@ class MatchDetailsUI extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection('match_list')
-              .doc(matchId)
-              .get(),
+          future: FirebaseFirestore.instance.collection('match_list').doc(matchId).get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -46,8 +43,6 @@ class MatchDetails extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         var match = snapshot.data?.data() as Map<String, dynamic>;
-
-
         return Container(
           width: double.infinity,
           height: 200,
